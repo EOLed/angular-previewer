@@ -1,3 +1,3 @@
-# angular-snuownd [![Build Status](https://travis-ci.org/achan/angular-snuownd.png?branch=master)](https://travis-ci.org/achan/angular-snuownd) [![Code Climate](https://codeclimate.com/github/achan/angular-snuownd.png)](https://codeclimate.com/github/achan/angular-snuownd)
+# angular-previewer [![Build Status](https://travis-ci.org/achan/angular-previewer.png?branch=master)](https://travis-ci.org/achan/angular-previewer) [![Code Climate](https://codeclimate.com/github/achan/angular-previewer.png)](https://codeclimate.com/github/achan/angular-previewer)
 
-A Bower component for an AngularJS snuownd directive
+A Bower component for an AngularJS url previewer directive
