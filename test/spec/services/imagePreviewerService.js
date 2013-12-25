@@ -6,15 +6,19 @@ describe('Service: imagePreviewerService', function () {
   beforeEach(module('achan.previewer'));
 
   // instantiate service
-  var helper;
-  beforeEach(inject(function (imagePreviewerService) {
+  var helper, scope;
+  beforeEach(inject(function (imagePreviewerService, $rootScope) {
     helper = imagePreviewerService.newHelper('hello.jpg');
+    scope = $rootScope.$new();
   }));
 
   describe('render', function () {
-    var img;
+    var img, element;
+
     beforeEach(function () {
-      img = angular.element(helper.render());
+      element = angular.element('<div></div>');
+      helper.render(scope, element);
+      img = element.find('img');
     });
 
     it('creates img tag with src as src', function () {

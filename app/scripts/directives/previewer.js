@@ -9,7 +9,11 @@ angular.module('achan.previewer', []).directive('ascPreviewer', function (previe
     },
     link: function postLink(scope, element) {
       scope.$watch('src', function (src) {
-        element.html(previewHelperFactory.newHelper(src).render());
+        if (angular.isUndefined(src)) {
+          return;
+        }
+
+        previewHelperFactory.newHelper(src).render(scope, element);
       });
     }
   };

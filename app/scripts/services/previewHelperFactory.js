@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('achan.previewer').factory('previewHelperFactory',
-    function (imagePreviewerService, imgurPreviewerService) {
+    function (imagePreviewerService, imgurPreviewerService, twitterPreviewService) {
   function endsWith(string, suffix) {
     return string.indexOf(suffix, string.length - suffix.length) !== -1;
   }
@@ -12,7 +12,13 @@ angular.module('achan.previewer').factory('previewHelperFactory',
   }
 
   function isImgurLink(src) {
-    return src.indexOf('http://imgur.com') !== -1;
+    var imgurUrlRegex  =  new RegExp(/https?:\/\/(www\.)?imgur\.com/);
+    return src.match(imgurUrlRegex);
+  }
+
+  function isTwitterLink(src) {
+    var twitterUrlRegex =  new RegExp(/https?:\/\/(www\.)?twitter\.com/);
+    return src.match(twitterUrlRegex);
   }
 
   var newHelper = function (src) {
@@ -22,6 +28,10 @@ angular.module('achan.previewer').factory('previewHelperFactory',
 
     if (isImgurLink(src)) {
       return imgurPreviewerService.newHelper(src);
+    }
+
+    if (isTwitterLink(src)) {
+      return twitterPreviewService.newHelper(src);
     }
   };
 

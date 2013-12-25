@@ -6,10 +6,11 @@ describe('Service: Previewhelperfactory', function () {
   beforeEach(module('achan.previewer'));
 
   // instantiate service
-  var previewHelperFactory, imagePreviewerService;
-  beforeEach(inject(function (_previewHelperFactory_, _imagePreviewerService_) {
+  var previewHelperFactory, imagePreviewerService, twitterPreviewService;
+  beforeEach(inject(function (_previewHelperFactory_, _imagePreviewerService_, _twitterPreviewService_) {
     imagePreviewerService = _imagePreviewerService_;
     previewHelperFactory = _previewHelperFactory_;
+    twitterPreviewService = _twitterPreviewService_;
   }));
 
   describe('getHelper()', function () {
@@ -41,6 +42,11 @@ describe('Service: Previewhelperfactory', function () {
     it('returns imagePreviewerService for imgur link', function () {
       expect(angular.toJson(previewHelperFactory.newHelper('http://imgur.com/q3OpgxF')))
           .toEqual(angular.toJson(imagePreviewerService.newHelper('http://i.imgur.com/q3OpgxF.jpg')));
+    });
+
+    it('returns twitterPreviewService for twitter link', function () {
+      expect(angular.toJson(previewHelperFactory.newHelper('https://twitter.com/Hoya2aPacer/status/5894272')))
+          .toEqual(angular.toJson(twitterPreviewService.newHelper('https://twitter.com/Hoya2aPacer/status/5894272')));
     });
   });
 });
