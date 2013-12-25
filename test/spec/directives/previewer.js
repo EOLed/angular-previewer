@@ -11,12 +11,21 @@ describe('Directive: previewer', function () {
     scope = $rootScope.$new();
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
+  it('previews jpgs', inject(function ($compile) {
     scope.url = 'me.jpg';
     element = angular.element('<asc-previewer src="url"></asc-previewer>');
     element = $compile(element)(scope);
     scope.$digest();
 
     expect(element.find('img').attr('src')).toBe('me.jpg');
+  }));
+
+  it('previews single imgur links', inject(function ($compile) {
+    scope.url = 'http://imgur.com/q3OpgxF';
+    element = angular.element('<asc-previewer src="url"></asc-previewer>');
+    element = $compile(element)(scope);
+    scope.$digest();
+
+    expect(element.find('img').attr('src')).toBe('http://i.imgur.com/q3OpgxF.jpg');
   }));
 });

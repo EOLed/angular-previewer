@@ -37,5 +37,10 @@ describe('Service: Previewhelperfactory', function () {
       expect(angular.toJson(previewHelperFactory.newHelper('hello.gif')))
           .toEqual(angular.toJson(imagePreviewerService.newHelper('hello.gif')));
     });
+
+    it('returns imagePreviewerService for imgur link', function () {
+      expect(angular.toJson(previewHelperFactory.newHelper('http://imgur.com/q3OpgxF')))
+          .toEqual(angular.toJson(imagePreviewerService.newHelper('http://i.imgur.com/q3OpgxF.jpg')));
+    });
   });
 });
