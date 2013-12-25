@@ -14,23 +14,28 @@ describe('Service: Previewhelperfactory', function () {
 
   describe('getHelper()', function () {
     it('returns imagePreviewerService for jpg', function () {
-      expect(previewHelperFactory.getHelper('hello.jpg')).toEqual(imagePreviewerService);
+      expect(angular.toJson(previewHelperFactory.newHelper('hello.jpg')))
+          .toEqual(angular.toJson(imagePreviewerService.newHelper('hello.jpg')));
     });
 
     it('returns imagePreviewerService for png', function () {
-      expect(previewHelperFactory.getHelper('hello.png')).toEqual(imagePreviewerService);
+      expect(angular.toJson(previewHelperFactory.newHelper('hello.png')))
+          .toEqual(angular.toJson(imagePreviewerService.newHelper('hello.png')));
     });
 
     it('returns imagePreviewerService for jpeg', function () {
-      expect(previewHelperFactory.getHelper('hello.jpeg')).toEqual(imagePreviewerService);
+      expect(angular.toJson(previewHelperFactory.newHelper('hello.jpeg')))
+          .toEqual(angular.toJson(imagePreviewerService.newHelper('hello.jpeg')));
     });
 
     it('returns imagePreviewerService for bmp', function () {
-      expect(previewHelperFactory.getHelper('hello.bmp')).toEqual(imagePreviewerService);
+      expect(angular.toJson(previewHelperFactory.newHelper('hello.bmp')))
+          .toEqual(angular.toJson(imagePreviewerService.newHelper('hello.bmp')));
     });
 
     it('returns imagePreviewerService for gif', function () {
-      expect(previewHelperFactory.getHelper('hello.gif')).toEqual(imagePreviewerService);
+      expect(angular.toJson(previewHelperFactory.newHelper('hello.gif')))
+          .toEqual(angular.toJson(imagePreviewerService.newHelper('hello.gif')));
     });
   });
 });

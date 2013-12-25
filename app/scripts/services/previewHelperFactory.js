@@ -10,13 +10,13 @@ angular.module('achan.previewer').factory('previewHelperFactory', function (imag
         endsWith(src, '.gif') || endsWith(src, '.bmp');
   }
 
-  var getHelper = function (src) {
+  var newHelper = function (src) {
     if (isImage(src)) {
-      return imagePreviewerService;
+      return imagePreviewerService.newHelper(src);
     }
   };
 
   return {
-    getHelper: getHelper
+    newHelper: newHelper
   };
 });

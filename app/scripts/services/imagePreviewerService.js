@@ -1,11 +1,22 @@
 'use strict';
 
 angular.module('achan.previewer').service('imagePreviewerService', function () {
-  var renderFn = function (src) {
-    return '<img src="' + src + '" class="img-responsive" />';
+  var Helper = function (src) {
+    var render = function () {
+      return '<img src="' + src + '" class="img-responsive" />';
+    };
+
+    return {
+      src: src,
+      render: render
+    };
   };
 
+  function newHelper(src) {
+    return new Helper(src);
+  }
+
   return {
-    render: renderFn
+    newHelper: newHelper
   };
 });
