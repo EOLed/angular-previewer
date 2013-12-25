@@ -11,8 +11,18 @@ describe('Service: imagePreviewerService', function () {
     imagePreviewerService = _imagePreviewerService_;
   }));
 
-  it('should do something', function () {
-    expect(!!imagePreviewerService).toBe(true);
-  });
+  describe('render', function () {
+    var img;
+    beforeEach(function () {
+      img = angular.element(imagePreviewerService.render('hello.jpg'));
+    });
 
+    it('creates img tag with src as src', function () {
+      expect(img.attr('src')).toEqual('hello.jpg');
+    });
+
+    it('adds img-responsive class to img', function () {
+      expect(img.hasClass('img-responsive')).toBeTruthy();
+    });
+  });
 });
