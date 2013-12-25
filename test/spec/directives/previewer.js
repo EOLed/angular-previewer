@@ -12,8 +12,11 @@ describe('Directive: previewer', function () {
   }));
 
   it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<asc-previewer></asc-previewer>');
+    scope.url = 'me.jpg';
+    element = angular.element('<asc-previewer src="url"></asc-previewer>');
     element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the previewer directive');
+    scope.$digest();
+
+    expect(element.find('img').attr('src')).toBe('me.jpg');
   }));
 });
