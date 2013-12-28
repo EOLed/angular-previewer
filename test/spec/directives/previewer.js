@@ -3,6 +3,7 @@
 describe('Directive: previewer', function () {
 
   // load the directive's module
+  beforeEach(module('achan.snuownd'));
   beforeEach(module('achan.previewer'));
 
   var element, scope;

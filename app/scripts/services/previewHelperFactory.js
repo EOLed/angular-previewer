@@ -1,9 +1,13 @@
 'use strict';
 
 angular.module('achan.previewer').factory('previewHelperFactory',
-    function (imagePreviewerService, imgurPreviewerService, twitterPreviewService) {
+    function (imagePreviewerService, imgurPreviewerService, twitterPreviewService, redditPreviewService) {
   function endsWith(string, suffix) {
     return string.indexOf(suffix, string.length - suffix.length) !== -1;
+  }
+
+  function matchesDomain(url, regex) {
+    return url.match(new RegExp(regex));
   }
 
   function isImage(src) {
@@ -12,13 +16,16 @@ angular.module('achan.previewer').factory('previewHelperFactory',
   }
 
   function isImgurLink(src) {
-    var imgurUrlRegex  =  new RegExp(/https?:\/\/(www\.)?imgur\.com/);
-    return src.match(imgurUrlRegex);
+    var matching = matchesDomain(src, /https?:\/\/(www\.)?imgur\.com/);
+    return matching;
   }
 
   function isTwitterLink(src) {
-    var twitterUrlRegex =  new RegExp(/https?:\/\/(www\.)?twitter\.com/);
-    return src.match(twitterUrlRegex);
+    return matchesDomain(src, /https?:\/\/(www\.)?twitter\.com/);
+  }
+
+  function isRedditLink(src) {
+    return matchesDomain(src, /https?:\/\/(www\.)?reddit\.com/);
   }
 
   var newHelper = function (src) {
@@ -32,6 +39,10 @@ angular.module('achan.previewer').factory('previewHelperFactory',
 
     if (isTwitterLink(src)) {
       return twitterPreviewService.newHelper(src);
+    }
+
+    if (isRedditLink(src)) {
+      return redditPreviewService.newHelper(src);
     }
   };
 

@@ -1,8 +1,9 @@
 'use strict';
 
-describe('Service: Previewhelperfactory', function () {
+describe('Service: previewHelperFactory', function () {
 
   // load the service's module
+  beforeEach(module('achan.snuownd'));
   beforeEach(module('achan.previewer'));
 
   // instantiate service
