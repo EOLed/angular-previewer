@@ -29,4 +29,13 @@ describe('Directive: previewer', function () {
 
     expect(element.find('img').attr('src')).toBe('http://i.imgur.com/q3OpgxF.jpg');
   }));
+
+  it('does nothing if no src is provided', inject(function ($compile) {
+    element = angular.element('<asc-previewer src="url"></asc-previewer>');
+    element = $compile(element)(scope);
+    var html = element.html();
+    scope.$digest();
+
+    expect(element.html()).toEqual(html);
+  }));
 });

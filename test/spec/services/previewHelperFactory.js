@@ -7,11 +7,13 @@ describe('Service: previewHelperFactory', function () {
   beforeEach(module('achan.previewer'));
 
   // instantiate service
-  var previewHelperFactory, imagePreviewerService, twitterPreviewService;
-  beforeEach(inject(function (_previewHelperFactory_, _imagePreviewerService_, _twitterPreviewService_) {
+  var previewHelperFactory, imagePreviewerService, twitterPreviewService, redditPreviewService;
+  beforeEach(inject(function (_previewHelperFactory_, _imagePreviewerService_, _twitterPreviewService_,
+      _redditPreviewService_) {
     imagePreviewerService = _imagePreviewerService_;
     previewHelperFactory = _previewHelperFactory_;
     twitterPreviewService = _twitterPreviewService_;
+    redditPreviewService = _redditPreviewService_;
   }));
 
   describe('getHelper()', function () {
@@ -48,6 +50,26 @@ describe('Service: previewHelperFactory', function () {
     it('returns twitterPreviewService for twitter link', function () {
       expect(angular.toJson(previewHelperFactory.newHelper('https://twitter.com/Hoya2aPacer/status/5894272')))
           .toEqual(angular.toJson(twitterPreviewService.newHelper('https://twitter.com/Hoya2aPacer/status/5894272')));
+    });
+
+    it('returns redditPreviewService for reddit link', function () {
+      expect(angular.toJson(previewHelperFactory.newHelper('http://www.reddit.com/r/nba')))
+          .toEqual(angular.toJson(redditPreviewService.newHelper('http://www.reddit.com/r/nba')));
+    });
+
+    describe('unsupported link', function () {
+      var noOpHelper;
+      beforeEach(function () {
+        noOpHelper = previewHelperFactory.newHelper('not supported');
+      });
+
+      it('returns noop helper', function () {
+        expect(!!noOpHelper);
+      });
+
+      it('has a render function', function () {
+        noOpHelper.render();
+      });
     });
   });
 });

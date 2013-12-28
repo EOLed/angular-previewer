@@ -28,6 +28,13 @@ angular.module('achan.previewer').factory('previewHelperFactory',
     return matchesDomain(src, /https?:\/\/(www\.)?reddit\.com/);
   }
 
+  var NoOpHelper = function () {
+    return {
+      render: function () {
+      }
+    };
+  };
+
   var newHelper = function (src) {
     if (isImage(src)) {
       return imagePreviewerService.newHelper(src);
@@ -44,6 +51,8 @@ angular.module('achan.previewer').factory('previewHelperFactory',
     if (isRedditLink(src)) {
       return redditPreviewService.newHelper(src);
     }
+
+    return new NoOpHelper();
   };
 
   return {
