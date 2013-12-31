@@ -7,12 +7,11 @@ describe('Service: Redditpreviewservice', function () {
   beforeEach(module('achan.previewer'));
 
   // instantiate service
-  var helper, scope, element, $httpBackend;
+  var redditPreviewService, scope, element, $httpBackend;
   beforeEach(inject(function (_redditPreviewService_, $rootScope, _$httpBackend_) {
-    var redditPreviewService  = _redditPreviewService_;
+    redditPreviewService  = _redditPreviewService_.forSource('http://www.reddit.com/r/nba');
     scope = $rootScope.$new();
     element = angular.element('<div></div>');
-    helper = redditPreviewService.newHelper('http://www.reddit.com/r/nba');
     $httpBackend = _$httpBackend_;
   }));
 
@@ -29,7 +28,7 @@ describe('Service: Redditpreviewservice', function () {
 
       $httpBackend.expectJSONP('http://www.reddit.com/r/nba/about.json?jsonp=JSON_CALLBACK')
           .respond(200, subredditResponse);
-      helper.render(scope, element);
+      redditPreviewService.render(scope, element);
       $httpBackend.flush();
     });
 

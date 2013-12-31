@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Service: imagePreviewerService', function () {
+describe('Service: imagePreviewService', function () {
 
   // load the service's module
   beforeEach(module('achan.previewer'));
 
   // instantiate service
-  var helper, scope;
-  beforeEach(inject(function (imagePreviewerService, $rootScope) {
-    helper = imagePreviewerService.newHelper('hello.jpg');
+  var imagePreviewService, scope;
+  beforeEach(inject(function (_imagePreviewService_, $rootScope) {
+    imagePreviewService = _imagePreviewService_.forSource('hello.jpg');
     scope = $rootScope.$new();
   }));
 
@@ -17,7 +17,7 @@ describe('Service: imagePreviewerService', function () {
 
     beforeEach(function () {
       element = angular.element('<div></div>');
-      helper.render(scope, element);
+      imagePreviewService.render(scope, element);
       img = element.find('img');
     });
 

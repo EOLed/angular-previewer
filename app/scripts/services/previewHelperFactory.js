@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('achan.previewer').factory('previewHelperFactory',
-    function (imagePreviewerService, imgurPreviewerService, twitterPreviewService, redditPreviewService) {
+    function (imagePreviewService, imgurPreviewService, twitterPreviewService, redditPreviewService) {
   function endsWith(string, suffix) {
     return string.indexOf(suffix, string.length - suffix.length) !== -1;
   }
@@ -35,27 +35,27 @@ angular.module('achan.previewer').factory('previewHelperFactory',
     };
   };
 
-  var newHelper = function (src) {
+  var forSource = function (src) {
     if (isImage(src)) {
-      return imagePreviewerService.newHelper(src);
+      return imagePreviewService.forSource(src);
     }
 
     if (isImgurLink(src)) {
-      return imgurPreviewerService.newHelper(src);
+      return imgurPreviewService.forSource(src);
     }
 
     if (isTwitterLink(src)) {
-      return twitterPreviewService.newHelper(src);
+      return twitterPreviewService.forSource(src);
     }
 
     if (isRedditLink(src)) {
-      return redditPreviewService.newHelper(src);
+      return redditPreviewService.forSource(src);
     }
 
     return new NoOpHelper();
   };
 
   return {
-    newHelper: newHelper
+    forSource: forSource
   };
 });

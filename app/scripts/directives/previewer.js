@@ -13,7 +13,7 @@ angular.module('achan.previewer', []).directive('ascPreviewer', function (previe
           return;
         }
 
-        previewHelperFactory.newHelper(src).render(scope, element);
+        previewHelperFactory.forSource(src).render(scope, element);
       });
     }
   };

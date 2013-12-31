@@ -6,15 +6,15 @@ describe('Service: twitterPreviewService', function () {
   beforeEach(module('achan.previewer'));
 
   // instantiate service
-  var helper, element, scope, $httpBackend;
-  beforeEach(inject(function (twitterPreviewService, $rootScope, _$httpBackend_) {
+  var twitterPreviewService, element, scope, $httpBackend;
+  beforeEach(inject(function (_twitterPreviewService_, $rootScope, _$httpBackend_) {
     scope = $rootScope.$new();
     element = angular.element('<div></div>');
     $httpBackend = _$httpBackend_;
     $httpBackend.expectJSONP('https://api.twitter.com/1/statuses/oembed.json?callback=JSON_CALLBACK&id=415619')
         .respond(200, { html: '<blockquote class="twitter-client">embedded tweet</blockquote>' });
-    helper = twitterPreviewService.newHelper('https://twitter.com/Hoya2aPacer/status/415619');
-    helper.render(scope, element);
+    twitterPreviewService = _twitterPreviewService_.forSource('https://twitter.com/Hoya2aPacer/status/415619');
+    twitterPreviewService.render(scope, element);
   }));
 
   describe('fetches oembed twitter post from twitter api', function () {

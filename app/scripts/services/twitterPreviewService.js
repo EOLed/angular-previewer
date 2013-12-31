@@ -5,25 +5,20 @@ angular.module('achan.previewer').service('twitterPreviewService', function ($ht
     return src.substring(src.lastIndexOf('/') + 1);
   }
 
-  var Helper = function (src) {
-    var render = function (scope, element) {
-      var tweetId = extractTweetIdFromSrc(src);
+  var source;
+  var TwitterPreviewService = {
+    forSource: function (src) {
+      source = src;
+      return TwitterPreviewService;
+    },
+    render: function (scope, element) {
+      var tweetId = extractTweetIdFromSrc(source);
       $http.jsonp('https://api.twitter.com/1/statuses/oembed.json?callback=JSON_CALLBACK&id=' + tweetId)
           .success(function (data) {
         element.html(data.html);
       });
-    };
-
-    return {
-      render: render
-    };
+    }
   };
 
-  function newHelper(src) {
-    return new Helper(src);
-  }
-
-  return {
-    newHelper: newHelper
-  };
+  return TwitterPreviewService;
 });
