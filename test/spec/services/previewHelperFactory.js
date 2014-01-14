@@ -5,13 +5,15 @@ describe('Service: previewHelperFactory', function () {
   beforeEach(module('achan.previewer'));
 
   // instantiate service
-  var previewHelperFactory, imagePreviewService, twitterPreviewService, redditPreviewService;
+  var previewHelperFactory, imagePreviewService, twitterPreviewService, redditPreviewService,
+      unsupportedLinkPreviewService;
   beforeEach(inject(function (_previewHelperFactory_, _imagePreviewService_,
-      _twitterPreviewService_, _redditPreviewService_) {
+      _twitterPreviewService_, _redditPreviewService_, _unsupportedLinkPreviewService_) {
     imagePreviewService = _imagePreviewService_;
     previewHelperFactory = _previewHelperFactory_;
     twitterPreviewService = _twitterPreviewService_;
     redditPreviewService = _redditPreviewService_;
+    unsupportedLinkPreviewService = _unsupportedLinkPreviewService_;
   }));
 
   describe('getHelper()', function () {
@@ -63,6 +65,24 @@ describe('Service: previewHelperFactory', function () {
       });
     });
 
+    describe('returns unsupportedLinkPreviewService for unsupported link', function () {
+      var helper;
+
+      beforeEach(function () {
+        spyOn(unsupportedLinkPreviewService, 'forSource').andCallThrough();
+        helper = previewHelperFactory.forSource('http://unsupported.com');
+      });
+
+      it('creates a helper for the source provided', function () {
+        expect(unsupportedLinkPreviewService.forSource)
+            .toHaveBeenCalledWith('http://unsupported.com');
+      });
+
+      it('fulfills the helper contract', function () {
+        verifyHelperContract(helper);
+      });
+    });
+
     describe('returns redditPreviewService for reddit link', function () {
       var helper;
 
@@ -79,27 +99,12 @@ describe('Service: previewHelperFactory', function () {
         verifyHelperContract(helper);
       });
     });
-
-    describe('unsupported link', function () {
-      var noOpHelper;
-      beforeEach(function () {
-        noOpHelper = previewHelperFactory.forSource('not supported');
-      });
-
-      it('returns noop helper', function () {
-        expect(!!noOpHelper);
-      });
-
-      it('has a render function', function () {
-        noOpHelper.render();
-      });
-    });
   });
 
   function verifyHelperContract(helperService) {
     describe('helper contract', function () {
       it('can render itself', function () {
-        helperService.render();
+        expect(helperService.render).toBeDefined();
       });
     });
   }

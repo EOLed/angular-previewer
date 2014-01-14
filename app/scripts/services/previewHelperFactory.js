@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('achan.previewer').factory('previewHelperFactory',
-    function (imagePreviewService, imgurPreviewService, twitterPreviewService, redditPreviewService) {
+    function (imagePreviewService, imgurPreviewService, twitterPreviewService, redditPreviewService,
+              unsupportedLinkPreviewService) {
   function endsWith(string, suffix) {
     return string.indexOf(suffix, string.length - suffix.length) !== -1;
   }
@@ -28,13 +29,6 @@ angular.module('achan.previewer').factory('previewHelperFactory',
     return matchesDomain(src, /https?:\/\/(www\.)?reddit\.com/);
   }
 
-  var NoOpHelper = function () {
-    return {
-      render: function () {
-      }
-    };
-  };
-
   var forSource = function (src) {
     if (isImage(src)) {
       return imagePreviewService.forSource(src);
@@ -52,7 +46,7 @@ angular.module('achan.previewer').factory('previewHelperFactory',
       return redditPreviewService.forSource(src);
     }
 
-    return new NoOpHelper();
+    return unsupportedLinkPreviewService.forSource(src);
   };
 
   return {
